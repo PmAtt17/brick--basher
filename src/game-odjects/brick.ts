@@ -1,70 +1,76 @@
+import { BRICK_SIZE } from "../constants";
 
  export class Brick{
-    ctx: CanvasRenderingContext2D;
-    x: number;
-    y: number;
-    size: number = 100;
-    
-    color: string = "blue";
 
-    constructor(ctx: CanvasRenderingContext2D, x: number, y: number){
-    this.x = x;
-    this.y = y;
-    this.ctx = ctx;
+    size: number = BRICK_SIZE;
+    
+    
+
+    constructor(private readonly ctx: CanvasRenderingContext2D,
+        public x: number,
+        public y: number,
+        public readonly color: string = "blue"){
+     this.x = x;
+     this.y = y;
+     this.ctx = ctx;
+    
     }
 
-    draw(): void {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.size, this.size);
+    public draw(): void {
+    const { ctx, x, y, size, color} = this;
+    
+    ctx.fillStyle =  color;
+    
+    ctx.fillRect(x, y, size, size);
 
-        let borderSize = this.size * .13; 
+        let borderSize = size * .15; 
 
-    this.ctx.strokeStyle = "white";
+    ctx.strokeStyle = "white";
 
     //top
-    this.ctx.fillStyle = "rgba(255, 255, 255, 0.3)"
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.x, this.y);
-    this.ctx.lineTo(this.x + this.size, this.y);
-    this.ctx.lineTo(this.x + this.size - borderSize, this.y + borderSize);
-    this.ctx.lineTo(this.x + borderSize, this.y + borderSize);
-    this.ctx.closePath();
-    this.ctx.fill();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + size, y);
+    ctx.lineTo(x + size - borderSize,  y + borderSize);
+    ctx.lineTo( x + borderSize,  y + borderSize);
+     ctx.closePath();
+     ctx.fill();
     //left
-    this.ctx.fillStyle = "rgba(255, 255, 255, 0.25)"
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.x, this.y);
-    this.ctx.lineTo(this.x, this.y + this.size);
-    this.ctx.lineTo(this.x + borderSize, this.y + this.size - borderSize);
-    this.ctx.lineTo(this.x + borderSize, this.y + borderSize);
-    this.ctx.closePath();
-    this.ctx.fill();
+     ctx.fillStyle = "rgba(255, 255, 255, 0.3)"
+     ctx.beginPath();
+     ctx.moveTo( x,  y);
+     ctx.lineTo( x,  y +  size);
+     ctx.lineTo( x + borderSize,  y +  size - borderSize);
+     ctx.lineTo( x + borderSize,  y + borderSize);
+     ctx.closePath();
+     ctx.fill();
     
 
     //bottom
-    this.ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.x, this.y + this.size);
-    this.ctx.lineTo(this.x + this.size, this.y + this.size);
-    this.ctx.lineTo(
-        this.x + this.size - borderSize,
-        this.y + this.size - borderSize
+     ctx.fillStyle = "rgba(0, 0, 0, 0.2)"
+     ctx.beginPath();
+     ctx.moveTo( x,  y +  size);
+     ctx.lineTo( x +  size,  y +  size);
+     ctx.lineTo(
+         x +  size - borderSize,
+         y +  size - borderSize
         );
-    this.ctx.lineTo(this.x + borderSize, this.y + this.size - borderSize);
-    this.ctx.closePath();
-    this.ctx.fill();
-    //this.ctx.stroke();
+     ctx.lineTo( x + borderSize,  y +  size - borderSize);
+     ctx.closePath();
+     ctx.fill();
+    // ctx.stroke();
 
     //right
-    this.ctx.fillStyle = "rgba(255, 255, 255, 0.25)"
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.x + this.size, this.y);
-    this.ctx.lineTo(this.x + this.size, this.y + this.size);//corner
-    this.ctx.lineTo(this.x + this.size - borderSize, this.y - borderSize + this.size);
-    this.ctx.lineTo(this.x - borderSize + this.size, this.y + borderSize);
-    this.ctx.closePath();
-    this.ctx.fill();
-    //this.ctx.stroke();
+     ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
+     ctx.beginPath();
+     ctx.moveTo( x +  size,  y);
+     ctx.lineTo( x +  size,  y +  size);//corner
+     ctx.lineTo( x +  size - borderSize,  y - borderSize +  size);
+     ctx.lineTo( x - borderSize +  size,  y + borderSize);
+     ctx.closePath();
+     ctx.fill();
+    // ctx.stroke();
     }
 
 }

@@ -10,8 +10,8 @@ export function initCanvas(){
     
     
     
-ctx.fillStyle = "red";
-ctx.fillRect(0,0, canvas.width, canvas.height);
+//ctx.fillStyle = "red";
+//ctx.fillRect(0,0, canvas.width, canvas.height);
 
 function onResize(){
   canvas.width = window.innerWidth;
