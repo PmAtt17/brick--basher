@@ -11,3 +11,4 @@ initCanvas();
 
   let gb = new GameBoard(ctx, canvas.width / 2, 150);
   gb.draw();
+  
