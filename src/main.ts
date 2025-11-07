@@ -1,5 +1,5 @@
 import { canvas, ctx, initCanvas } from './canvas-ctx';
-import { GameBoard } from './game-odjects/game-board';
+import { GameManager } from './game-manager';
 import './style.css'
 
 initCanvas();
@@ -9,6 +9,14 @@ initCanvas();
   //let brick = new Brick(ctx, canvas.width/2, canvas.height/2);
   //brick.draw();
 
-  let gb = new GameBoard(ctx, canvas.width / 2, 150);
-  gb.draw();
+  let gm = new GameManager(ctx, canvas);
+
   
+  function gameLoop(timestamp: number){
+    gm.update(timestamp);
+gm.draw();
+    
+    requestAnimationFrame(gameLoop);
+  }
+
+  requestAnimationFrame(gameLoop);
