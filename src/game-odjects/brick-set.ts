@@ -62,4 +62,22 @@ let rand = Math.floor(Math.random() * colors.length);
 
 this.color = colors[rand];
     }
+
+    public isPointOver(point: Point) : boolean{
+        const isPointOver = this.bricks.some(b => b.isPointOver(point));
+        return isPointOver;
+    }
+
+    public move(point: Point, ):void{
+        this.x = point.x;
+        this.y = point.y;
+
+        const { x, y, pos, bricks} = this;
+
+        pos.forEach((p, idx) => {
+            let point = pointMap [p -1];
+            bricks[idx].x = x + point.x
+            bricks[idx].y = y + point.y
+        })
+    }
 }
