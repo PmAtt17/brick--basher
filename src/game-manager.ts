@@ -40,14 +40,33 @@ slotBeta.brickSet.draw();
 slotAlpha.brickSet.draw();
 slotCharlie.brickSet.draw();
 
+this.selectedSlot?.brickSet.draw();
+
 }
 
 
 public update(timestamp: number): void{
     
+    const slots = [this.slotAlpha, this.slotBeta, this.slotCharlie];
+
+    document.body.style.cursor = "default";
+
     if(this.selectedSlot){
+        document.body.style.cursor = "none";
         this.selectedSlot.move(this.mousePosition);
     }
+    
+    if(!this.selectedSlot){
+        document.body.style.cursor = "default";
+    }
+
+    if(!this.selectedSlot && 
+        slots.some((s) => s.isPointOver(this.mousePosition))
+    ){
+    document.body.style.cursor = "grab";
+    }
+    
+
 }
 
 private initSlots() {
@@ -55,17 +74,11 @@ private initSlots() {
 const y = this.boardPadding.top + BRICK_SIZE * 8 + this.boardPadding.bottom;
 
 let pointBeta = new Point(this.canvas.width/2 - BRICK_SIZE * 2, y);
-
-let pointAlpha = new Point(pointBeta  - BRICK_SIZE * 5, y);
-
+let pointAlpha = new Point(pointBeta.x  - BRICK_SIZE * 5, y);
 let pointCharlie = new Point(pointBeta.x + BRICK_SIZE * 5, y);
 
     this.slotBeta = new patternSlot(this.ctx, pointBeta);
-    pointBeta.x -= BRICK_SIZE * 5;
-
     this.slotAlpha = new patternSlot(this.ctx, pointAlpha);
-    pointBeta.x += BRICK_SIZE * 10;
-
     this.slotCharlie = new patternSlot(this.ctx, pointCharlie);
 
 }
@@ -95,21 +108,13 @@ private onClick(){
         this.selectedSlot = null
     }
 
-    if(this.slotAlpha.isPointOver(this.mousePosition)){
-    console.log("overAlpha", this.mousePosition);
-    this.selectedSlot = this.slotAlpha;
-};
+    const slots = [this.slotAlpha, this.slotBeta, this.slotCharlie];
 
-if(this.slotBeta.isPointOver(this.mousePosition)){
-    console.log("overBeta", this.mousePosition);
-    this.selectedSlot = this.slotBeta;
-};
+    slots.forEach(s => {
+        if(s.isPointOver(this.mousePosition))
+    this.selectedSlot = s;
+    })
 
-if(this.slotCharlie.isPointOver(this.mousePosition)){
-    console.log("overCharlie", this.mousePosition);
-    this.selectedSlot = this.slotCharlie;
 };
-
-}
 
 }

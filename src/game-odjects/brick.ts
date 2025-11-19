@@ -85,4 +85,6 @@ import type { Point } from "./point";
         return isInPath;
     }
 
+    
+
 }
