@@ -1,10 +1,10 @@
 import { BRICK_SIZE, HIGHLIGHTCOLOR } from "../constants";
-import type { Point } from "./point";
+import { Point } from "./point";
 
  export class Brick{
 
-    size: number = BRICK_SIZE;
-    
+    size = BRICK_SIZE;
+    highlightColor: string | null = null;
     
 
     constructor(
@@ -12,7 +12,6 @@ import type { Point } from "./point";
         public x: number,
         public y: number,
         public readonly color: string = "blue",
-        public highlightColor: string = "HIGHLIGHTCOLOR"
     ){
      this.x = x;
      this.y = y;
@@ -23,15 +22,29 @@ import type { Point } from "./point";
     public draw(): void {
     const { ctx, x, y, size, color} = this;
     
-    ctx.fillStyle =  color;
-    
+        ctx.save();
+
+    ctx.fillStyle =  this.highlightColor ?? color;
+    ctx.globalAlpha = this.highlightColor ? 0.5 : 1;
+
     ctx.fillRect(x, y, size, size);
+
+
+        this.drawBevels();
+
+        ctx.restore();
+
+    }
+
+    private drawBevels() : void {
+
+        const { ctx, x, y, size} = this;
 
         let borderSize = size * .15; 
 
-    ctx.strokeStyle = "white";
+        ctx.strokeStyle = "white";
 
-    //top
+        //top
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -75,6 +88,7 @@ import type { Point } from "./point";
      ctx.closePath();
      ctx.fill();
     // ctx.stroke();
+        ctx.fill();
     }
 
     public isPointOver(point: Point) : boolean {
@@ -87,19 +101,17 @@ import type { Point } from "./point";
         return isInPath;
     }
 
-    public center() {
-        let x = (this.x + BRICK_SIZE/2);
-        let y = (this.y + BRICK_SIZE/2);
-        
-        let centerPoint : number = (x, y);
-        
+    public center(): Point {
+    return new Point(this.x + this.size/2, this.y + this.size/2)
     }
     
-    public isOtherOver(point: Point) : boolean{
-        const path = new Path2D();
-        path.rect(this.x + this.size/2, this.y + this.size/2, 1, 1);
+    public isOtherOver(other: Brick) : boolean{
+        // const path = new Path2D();
+        // path.rect(this.x + this.size/2, this.y + this.size/2, 1, 1);
 
-        const isOnCenter = this.ctx.isPointInPath(path,point.x, point.y);
-        return isOnCenter;
+        // const isOnCenter = this.ctx.isPointInPath(path,point.x, point.y);
+        // return isOnCenter;
+
+        return this.isPointOver(other.center());
     }
 }

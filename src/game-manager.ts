@@ -54,6 +54,7 @@ public update(timestamp: number): void{
     if(this.selectedSlot){
         document.body.style.cursor = "none";
         this.selectedSlot.move(this.mousePosition);
+        this.board.HighlightBrickSet(this.selectedSlot.brickSet);
     }
     
     if(!this.selectedSlot){
