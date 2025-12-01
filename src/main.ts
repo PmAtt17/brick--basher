@@ -1,22 +1,21 @@
-import { canvas, ctx, initCanvas } from './canvas-ctx';
-import { GameManager } from './game-manager';
-import './style.css'
+import "./style.css";
+import { ctx, canvas, initCanvas } from "./canvas-ctx";
+import { GameManager } from "./game-manager";
 
 initCanvas();
-  //ctx.fillStyle = "red";
-  //ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  //let brick = new Brick(ctx, canvas.width/2, canvas.height/2);
-  //brick.draw();
+let gm = new GameManager(ctx, canvas);
+let lastTimestamp = 0;
 
-  let gm = new GameManager(ctx, canvas);
+function gameLoop(timestamp: number) {
+	let elapsedTime = timestamp - lastTimestamp;
+	lastTimestamp = timestamp;
 
-  
-  function gameLoop(timestamp: number){
-    gm.update(timestamp);
-gm.draw();
-    
-    requestAnimationFrame(gameLoop);
-  }
+	gm.update(elapsedTime);
+	gm.draw();
 
-  requestAnimationFrame(gameLoop);
+	// make sure this stays as the last thing
+	requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
