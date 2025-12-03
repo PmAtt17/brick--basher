@@ -1,4 +1,5 @@
 import { BOARD_COLOR, BRICK_SIZE } from "../constants";
+import { BrickScore, ScoreEvent } from "../game-events";
 import { Brick } from "./brick";
 import { BrickSet } from "./brick-set";
 import { Point } from "./point";
@@ -141,6 +142,9 @@ export class GameBoard {
 			c.highlight(null);
 		});
 
+		const event = new ScoreEvent(score);
+		// triggers event
+		window.dispatchEvent(event);
 		console.log("score: ", score);
 	}
 
@@ -246,10 +250,4 @@ class BoardSlot {
 	}
 }
 
-class BrickScore {
-	constructor(
-		public bricks: number = 0,
-		public rows: number = 0,
-		public cols: number = 0
-	) {}
-}
+

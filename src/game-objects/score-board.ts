@@ -3,6 +3,7 @@
 export class ScoreBoard {
 
     private currentScore: number = 9999;
+    private maxScore : number = 0;
 
     constructor(
         private readonly ctx: CanvasRenderingContext2D,
@@ -13,18 +14,22 @@ export class ScoreBoard {
     ){}
 
     public draw() : void {
-        const {ctx, x, y, w, h, currentScore} = this;
+        const {ctx, x, y, w, h, currentScore, maxScore} = this;
 
         ctx.save();
 
         let currentScoreX = x + w/2;
-        let currentScoreY = y + h/2;
+        let currentScoreY = y + h/2 + 15;
 
-        ctx.font = "20px fantasy";
+        ctx.font = "30px Science Gothic";
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
+        ctx.fillText(currentScore.toLocaleString(), currentScoreX, currentScoreY);
 
-        ctx.fillText(currentScore.toString(), currentScoreX, currentScoreY);
+         ctx.font = "15px Science Gothic";
+        ctx.textAlign = "left";
+        ctx.fillStyle = "gold";
+        ctx.fillText(maxScore.toLocaleString(), x + 30, y + 30);
 
         ctx.restore();
     }
