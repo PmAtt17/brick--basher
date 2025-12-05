@@ -18,6 +18,11 @@ export class BrickScore {
 		public rows: number = 0,
 		public cols: number = 0
 	) {}
+
+    public total() : number{
+        return this.bricks * 10 + (this.rows + this.cols) * 10;
+    }
+
 }
 
 export class GameOverEvnet extends Event{
