@@ -1,5 +1,5 @@
 import { BRICK_SIZE } from "./constants";
-import { GameOverEvnet } from "./game-events";
+import { GameOverEvent } from "./game-events";
 import { GameBoard } from "./game-objects/game-board";
 import { PatternSlot } from "./game-objects/pattern-slot";
 import { Point } from "./game-objects/point";
@@ -18,7 +18,7 @@ export class GameManager {
 	private slotCharlie!: PatternSlot;
 
 	private mousePosition: Point = new Point(0, 0);
-	private selectedSlot: PatternSlot | null = null;
+	public selectedSlot: PatternSlot | null = null;
 
 	private isGameOver: boolean = false;
 
@@ -136,8 +136,8 @@ export class GameManager {
 			// Reset the brick set position, and clear the selected slot.
 			this.selectedSlot.resetPosition();
 			this.selectedSlot = null;
-
 			this.checkForGameOver();
+			
 			return;
 		}
 
@@ -170,8 +170,9 @@ export class GameManager {
 		console.log("Game over?", this.isGameOver);
 
 		if(this.isGameOver) {
-			let event = new GameOverEvnet();
-			window.dispatchEvent(event);
+			let event = new GameOverEvent();
+			window.dispatchEvent(event); 
 		}
 	}
+public brickAmount: number = this.selectedSlot!.brickSet!.bricks!.length!;
 }

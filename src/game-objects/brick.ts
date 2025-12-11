@@ -88,7 +88,7 @@ export class Brick {
 
 	public center(): Point {
 		const { x, y, size } = this;
-		return new Point(x + size / 2, y + size / 2);
+		return new Point(x + size / 4, y + size / 4);
 	}
 
 	public isOverOther(other: Brick): boolean {

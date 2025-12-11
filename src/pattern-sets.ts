@@ -1,4 +1,4 @@
-export let patternSets: Array <Array<number>> = [
+export let patternSets: number[][] = [
     [1],
     [1,2],
     [1,5],

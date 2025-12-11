@@ -2,9 +2,11 @@ import { patternSets } from "../pattern-sets";
 import { BrickSet } from "./brick-set";
 import { Point } from "./point";
 
+
+
 export class PatternSlot {
 	public brickSet: BrickSet | null = null;
-
+	//public pattern: number = this.generateSet;
 	constructor(
 		private readonly ctx: CanvasRenderingContext2D,
 		private readonly point: Point
@@ -16,7 +18,7 @@ export class PatternSlot {
 		let { ctx, point } = this;
 
 		const idx = Math.floor(Math.random() * patternSets.length);
-		const pattern = patternSets[idx];
+		const pattern = patternSets[idx]; //need this length in game events or the value in it
 
 		this.brickSet = new BrickSet(ctx, point.x, point.y, pattern);
 	}

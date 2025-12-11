@@ -1,8 +1,10 @@
+import { GameManager } from "./game-manager";
+
 // in type script we need to register our events with a glodal event handeler map
 declare global {
     interface GlobalEventHandlersEventMap{
         "bb-score": ScoreEvent;
-        "bb-game-over": GameOverEvnet;
+        "bb-game-over": GameOverEvent;
     }
 }
 
@@ -20,12 +22,13 @@ export class BrickScore {
 	) {}
 
     public total() : number{
-        return this.bricks * 10 + (this.rows + this.cols) * 10;
+
+        return this.bricks * 10 + (this.rows + this.cols + GameManager.length) * 10 ;
     }
 
 }
 
-export class GameOverEvnet extends Event{
+export class GameOverEvent extends Event{
 constructor () {
     super("bb-game-over");
 }
