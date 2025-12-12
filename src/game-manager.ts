@@ -22,6 +22,8 @@ export class GameManager {
 
 	private isGameOver: boolean = false;
 
+	public brickAmount: number = this.selectedSlot!.brickSet!.bricks.length;
+
 	constructor(
 		private readonly ctx: CanvasRenderingContext2D,
 		private readonly canvas: HTMLCanvasElement
@@ -120,6 +122,8 @@ export class GameManager {
 	private onClick() {
 		const { slotAlpha, slotBeta, slotCharlie, mousePosition, board } = this;
 
+		let SelectedSlotSet = this.selectedSlot?.brickSet
+
 		// If we have a brick set selected and the board has
 		// target slots available for the set, that means we
 		// can place the bricks on the board and clear the
@@ -152,6 +156,7 @@ export class GameManager {
 		});
 	}
 
+
 	private checkForGameOver(): void {
 		// check our remaining slots with brick sets to see if we can place at least one
 		const slotsWithSets = [
@@ -174,5 +179,4 @@ export class GameManager {
 			window.dispatchEvent(event); 
 		}
 	}
-public brickAmount: number = this.selectedSlot!.brickSet!.bricks!.length!;
 }
