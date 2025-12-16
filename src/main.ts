@@ -6,9 +6,8 @@ initCanvas();
 
 let gm = new GameManager(ctx, canvas);
 
-function gameLoop(timestamp: number) {
-	let lastTimestamp = 0;
-	lastTimestamp = timestamp;
+function gameLoop() {
+	
 
 	gm.draw();
 
