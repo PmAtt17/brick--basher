@@ -56,7 +56,7 @@ export class GameManager {
 		this.selectedSlot?.brickSet?.draw();
 	}
 
-	public update(elapsedTime: number): void {
+	public update(): void {
 		document.body.style.cursor = "default";
 
 		if (this.isGameOver) {
@@ -121,7 +121,6 @@ export class GameManager {
 	private onClick() {
 		const { slotAlpha, slotBeta, slotCharlie, mousePosition, board } = this;
 
-		let brickAmount = 0;
 
 		// If we have a brick set selected and the board has
 		// target slots available for the set, that means we
@@ -133,9 +132,6 @@ export class GameManager {
 					board.slots[s].setBrick(this.selectedSlot!.brickSet!.bricks[i]);
 				});
 				board.clearFilledSlots();
-				if(this.selectedSlot){
-					brickAmount = this.selectedSlot!.brickSet!.bricks.length;
-				}
 
 				this.selectedSlot.brickSet = null;
 			}
@@ -158,7 +154,7 @@ export class GameManager {
 			}
 		});
 	}
-	public SelectedSlotAmount: number = this.onClick;
+	
 
 	private checkForGameOver(): void {
 		// check our remaining slots with brick sets to see if we can place at least one
