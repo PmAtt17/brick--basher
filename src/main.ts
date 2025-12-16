@@ -8,7 +8,6 @@ let gm = new GameManager(ctx, canvas);
 let lastTimestamp = 0;
 
 function gameLoop(timestamp: number) {
-	let elapsedTime = timestamp - lastTimestamp;
 	lastTimestamp = timestamp;
 
 	gm.draw();
