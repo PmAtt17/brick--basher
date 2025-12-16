@@ -11,7 +11,6 @@ function gameLoop(timestamp: number) {
 	let elapsedTime = timestamp - lastTimestamp;
 	lastTimestamp = timestamp;
 
-	gm.update(elapsedTime);
 	gm.draw();
 
 	// make sure this stays as the last thing
