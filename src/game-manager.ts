@@ -1,14 +1,16 @@
 import { BRICK_SIZE } from "./constants";
 import { GameOverEvent } from "./game-events";
-import { Brick } from "./game-objects/brick";
 import { GameBoard } from "./game-objects/game-board";
 import { PatternSlot } from "./game-objects/pattern-slot";
 import { Point } from "./game-objects/point";
 import { ScoreBoard } from "./game-objects/score-board";
 
+
 export class GameManager {
+	public BrickScore: number = 0;
 	private board: GameBoard;
 	private scoreBoard : ScoreBoard;
+	public BrickSScore: number = this.BrickScore;
 	private boardPadding = {
 		top: 100,
 		bottom: 50,
@@ -119,7 +121,7 @@ export class GameManager {
 		this.mousePosition.y = event.clientY;
 	}
 
-	public BrickScore = 0; //this.selectedSlot!.brickSet!.bricks!.length!
+	// public BrickScore: number = 0;
 	
 
 	private onClick() {
@@ -137,6 +139,10 @@ export class GameManager {
 					board.slots[s].setBrick(selectedSlot!.brickSet!.bricks[i]);
 				});
 				board.clearFilledSlots();
+				if(this.selectedSlot!.brickSet!.bricks!){
+			this.BrickScore = selectedSlot!.brickSet!.bricks!.length
+			}
+			this.selectedSlot!.brickSet = null;
 			}
 			// Reset the brick set position, and clear the selected slot.
 			selectedSlot.resetPosition();
@@ -144,11 +150,8 @@ export class GameManager {
 			//  this.selectedSlot = null;
 			this.checkForGameOver();
 			
-			if(this.selectedSlot!.brickSet!.bricks!){
-			this.BrickScore = selectedSlot!.brickSet!.bricks!.length
-			}
-
-			this.selectedSlot!.brickSet = null;
+			// get rid of the // to recreate the glich and add them on 143
+			//this.selectedSlot!.brickSet = null;
 			this.selectedSlot = null;
 			return;
 		}

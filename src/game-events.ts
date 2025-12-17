@@ -1,4 +1,5 @@
-import { GameManager } from "./game-manager";
+import { BrickSScore } from "./game-manager";
+
 
 // in type script we need to register our events with a glodal event handeler map
 declare global {
@@ -23,7 +24,7 @@ export class BrickScore {
 
     public total() : number{
 
-        return this.bricks * 10 + (this.rows + this.cols + GameManager.length) * 10 ;
+        return this.bricks * 10 + (this.rows + this.cols + BrickSScore) * 10 ;
     }
 
 }
