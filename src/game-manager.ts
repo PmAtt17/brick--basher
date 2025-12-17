@@ -1,5 +1,6 @@
 import { BRICK_SIZE } from "./constants";
 import { GameOverEvent } from "./game-events";
+import { Brick } from "./game-objects/brick";
 import { GameBoard } from "./game-objects/game-board";
 import { PatternSlot } from "./game-objects/pattern-slot";
 import { Point } from "./game-objects/point";
@@ -56,7 +57,7 @@ export class GameManager {
 		this.selectedSlot?.brickSet?.draw();
 	}
 
-	public update(): void {
+	public update(elapsedTime: number): void {
 		document.body.style.cursor = "default";
 
 		if (this.isGameOver) {
@@ -118,31 +119,40 @@ export class GameManager {
 		this.mousePosition.y = event.clientY;
 	}
 
-	private onClick() {
-		const { slotAlpha, slotBeta, slotCharlie, mousePosition, board } = this;
+	public BrickScore = 0; //this.selectedSlot!.brickSet!.bricks!.length!
+	
 
+	private onClick() {
+		const { slotAlpha, slotBeta, slotCharlie, mousePosition, board, selectedSlot } = this;
+
+		
 
 		// If we have a brick set selected and the board has
 		// target slots available for the set, that means we
 		// can place the bricks on the board and clear the
 		// brick set for the selected slot.
-		if (this.selectedSlot && this.selectedSlot.brickSet) {
+		if (selectedSlot && selectedSlot.brickSet) {
 			if (board.targetSlots.length) {
 				board.targetSlots.forEach((s, i) => {
-					board.slots[s].setBrick(this.selectedSlot!.brickSet!.bricks[i]);
+					board.slots[s].setBrick(selectedSlot!.brickSet!.bricks[i]);
 				});
 				board.clearFilledSlots();
-
-				this.selectedSlot.brickSet = null;
 			}
-
 			// Reset the brick set position, and clear the selected slot.
-			this.selectedSlot.resetPosition();
-			this.selectedSlot = null;
+			selectedSlot.resetPosition();
+			//  this.selectedSlot.brickSet = null;
+			//  this.selectedSlot = null;
 			this.checkForGameOver();
 			
+			if(this.selectedSlot!.brickSet!.bricks!){
+			this.BrickScore = selectedSlot!.brickSet!.bricks!.length
+			}
+
+			this.selectedSlot!.brickSet = null;
+			this.selectedSlot = null;
 			return;
 		}
+		
 
 		const slots = [slotAlpha, slotBeta, slotCharlie];
 		// check each slot to see of the mouse is over a brick set
@@ -155,6 +165,7 @@ export class GameManager {
 		});
 	}
 	
+	// public BrickScore:number | null = this.selectedSlot!.brickSet!.bricks.length
 
 	private checkForGameOver(): void {
 		// check our remaining slots with brick sets to see if we can place at least one
